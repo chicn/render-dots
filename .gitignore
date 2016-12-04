@@ -1,0 +1,6 @@
+# gitignore
+
+.DS_Store
+
+# ignore images for testing
+images/
