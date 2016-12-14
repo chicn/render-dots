@@ -40,7 +40,7 @@ import glob
 ### ここで、本当は(1)boxあり、(2)boxなしで分岐させたいが、
 ### 時間の都合上、既にboxのみのファイルを手で作り、それを使う。
 
-print "(1/ )顔の位置ファイルのパスを入力してください"
+print "(1/3)顔の位置ファイルのパスを入力してください"
 face_box_path = raw_input()
 # /Users/chihiro/Documents/08.Jolie-Joli/Images/ibug/300W/create_traindata/box.xml
 
@@ -62,7 +62,7 @@ for i in range(image_num):
 ### "image_file_name" が今回欲しいファイル名
 
 
-print "(2/ ) 整数のランドマーク・ファイルが入ってるディレクトリへのパスを入力してください。"
+print "(2/3) 整数のランドマーク・ファイルが入ってるディレクトリへのパスを入力してください。"
 land_dir = raw_input() + "/"
 # /Users/chihiro/Documents/08.Jolie-Joli/Images/ibug/300W/02_2_indoor_landmark_round
 
