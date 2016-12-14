@@ -79,36 +79,36 @@ for i in range(image_num):
 for i in range(image_num):
     land[i] = land[i][0:-1]
 
-### Ver.1 xmlファイルの形に変換
+# ### Ver.1 xmlファイルの形に変換
+# # for i in range(image_num):
+# #     for j in range(len(land[i])):
+# #         x_y = land[i][j].split(", ")
+# #         if j < 10:
+# #             land[i][j] = "      <part name='0" + str(j) + "' x='" + x_y[0] + "' y='" + x_y[1] + "'/>"
+# #         else:
+# #             land[i][j] = "      <part name='" + str(j) + "' x='" + x_y[0] + "' y='" + x_y[1] + "'/>"
+
+
+# ### Ver.2 parseで直接取り込むようのfor文
+# xml_part = [""] * image_num
 # for i in range(image_num):
 #     for j in range(len(land[i])):
 #         x_y = land[i][j].split(", ")
 #         if j < 10:
-#             land[i][j] = "      <part name='0" + str(j) + "' x='" + x_y[0] + "' y='" + x_y[1] + "'/>"
+#             # land[i][j] = "<part name='0" + str(j) + "' x='" + x_y[0] + "' y='" + x_y[1] + "'/>"
+#             xml_part[i] += "<part name='0" + str(j) + "' x='" + x_y[0] + "' y='" + x_y[1] + "'/>"
 #         else:
-#             land[i][j] = "      <part name='" + str(j) + "' x='" + x_y[0] + "' y='" + x_y[1] + "'/>"
+#             xml_part[i] += "<part name='" + str(j) + "' x='" + x_y[0] + "' y='" + x_y[1] + "'/>"
 
+# ##### ET.fromstringができるようにXML構造をしっかりと持たせて、parseする
+# for i in range(image_num):
+#     xml_part[i] = "<parts>" + xml_part[i] + "</parts>"
+#     xml_part[i] = ET.fromstring(xml_part[i])
 
-### Ver.2 parseで直接取り込むようのfor文
-xml_part = [""] * image_num
-for i in range(image_num):
-    for j in range(len(land[i])):
-        x_y = land[i][j].split(", ")
-        if j < 10:
-            # land[i][j] = "<part name='0" + str(j) + "' x='" + x_y[0] + "' y='" + x_y[1] + "'/>"
-            xml_part[i] += "<part name='0" + str(j) + "' x='" + x_y[0] + "' y='" + x_y[1] + "'/>"
-        else:
-            xml_part[i] += "<part name='" + str(j) + "' x='" + x_y[0] + "' y='" + x_y[1] + "'/>"
+# ##### boxの子要素として、書くpartを入れていく
 
-##### ET.fromstringができるようにXML構造をしっかりと持たせて、parseする
-for i in range(image_num):
-    xml_part[i] = "<parts>" + xml_part[i] + "</parts>"
-    xml_part[i] = ET.fromstring(xml_part[i])
-
-##### boxの子要素として、書くpartを入れていく
-
-for box in root.findall('.//box'):
-    ET.SubElement(box, xml_part[i])
+# for box in root.findall('.//box'):
+#     ET.SubElement(box, xml_part[i])
 
 ### Ver.3 要素は配列を保持し、attrib={} で扱いやすくしておく
 xml_part = [[""] * len(land[i])] * image_num
