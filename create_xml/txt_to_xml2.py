@@ -90,25 +90,25 @@ for i in range(image_num):
 
 
 ### Ver.2 parseで直接取り込むようのfor文
-xml_part = [""] * image_num
-for i in range(image_num):
-    for j in range(len(land[i])):
-        x_y = land[i][j].split(", ")
-        if j < 10:
-            # land[i][j] = "<part name='0" + str(j) + "' x='" + x_y[0] + "' y='" + x_y[1] + "'/>"
-            xml_part[i] += "<part name='0" + str(j) + "' x='" + x_y[0] + "' y='" + x_y[1] + "'/>"
-        else:
-            xml_part[i] += "<part name='" + str(j) + "' x='" + x_y[0] + "' y='" + x_y[1] + "'/>"
+# xml_part = [""] * image_num
+# for i in range(image_num):
+#     for j in range(len(land[i])):
+#         x_y = land[i][j].split(", ")
+#         if j < 10:
+#             # land[i][j] = "<part name='0" + str(j) + "' x='" + x_y[0] + "' y='" + x_y[1] + "'/>"
+#             xml_part[i] += "<part name='0" + str(j) + "' x='" + x_y[0] + "' y='" + x_y[1] + "'/>"
+#         else:
+#             xml_part[i] += "<part name='" + str(j) + "' x='" + x_y[0] + "' y='" + x_y[1] + "'/>"
 
-##### ET.fromstringができるようにXML構造をしっかりと持たせて、parseする
-for i in range(image_num):
-    xml_part[i] = "<parts>" + xml_part[i] + "</parts>"
-    xml_part[i] = ET.fromstring(xml_part[i])
+# ##### ET.fromstringができるようにXML構造をしっかりと持たせて、parseする
+# for i in range(image_num):
+#     xml_part[i] = "<parts>" + xml_part[i] + "</parts>"
+#     xml_part[i] = ET.fromstring(xml_part[i])
 
 ##### boxの子要素として、書くpartを入れていく
 
-for box in root.findall('.//box'):
-    ET.SubElement(box, xml_part[i])
+# for box in root.findall('.//box'):
+#     ET.SubElement(box, xml_part[i])
 
 ### Ver.3 要素は配列を保持し、attrib={} で扱いやすくしておく
 xml_part = [[""] * len(land[i])] * image_num
@@ -143,9 +143,23 @@ for root_elem in root.iter('box'):
                      )
 
 
+def indent(elem, level=0):
+    i = "\n" + level*"  "
+    if len(elem):
+        if not elem.text or not elem.text.strip():
+            elem.text = i + "  "
+        if not elem.tail or not elem.tail.strip():
+            elem.tail = i
+        for elem in elem:
+            indent(elem, level+1)
+        if not elem.tail or not elem.tail.strip():
+            elem.tail = i
+    else:
+        if level and (not elem.tail or not elem.tail.strip()):
+            elem.tail = i
 
+indent(root)
 
 print "(3/3) 保存したい学習データのパス+ファイル名を入力してください"
 outdir = raw_input() + "/"
-# /Users/chihiro/Documents/08.Jolie-Joli/Images/ibug/300W/05_Indoor_circle
-tree.write(outdir)
+tree.write(outdir, encoding='utf-8')
