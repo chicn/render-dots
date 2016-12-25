@@ -35,18 +35,19 @@ ex) /Users/chihiro/Programs/dlib/DlibSample/Images/faces_12202016/training_with_
 land_path = raw_input()
 tree = ET.parse(land_path)
 root = tree.getroot()
-images_xml = root.find('images') # 'images' 以下のみのXMLにする
+# images_xml = root.find('images') # 'images' 以下のみのXMLにする
 
 
 
 ### 1-2. XMLファイルをレンダリングに使えるように分解しておく
-# image_file_name = [0] * len(root[2])
-image_file_name = []
+image_file_names = []
 
-# for i in range(len(root[2])):
-#     image_file_name[i] = root[2][i].attrib['file']
-for image in images_xml.findall('image'):
-     image_file_name.append(image.attrib['file'])
+for image in root.findall('.//image'):
+    tmp = image.attrib['file']
+    if tmp.index('/') > 0:
+        tmp = tmp.split('/')[-1]
+    image_file_names.append(tmp)
+
 
 
 ### 2. レンダリング
@@ -60,8 +61,11 @@ def put_text(img, x, y, landmark, color=(3, 198, 2):
 print("[2/3] 画像が入ったディレクトリのパスを入力してください。")
 img_dir = raw_input() + "/"
 
-print("[3/3] 画像を入れるディレクトリのパスを入力してください。")
-out_dir = raw_input() + "/"
+# /Users/chihiro/Programs/dlib/DlibSample/Images/faces_12202016/Image
+
+if img_dir[-1] != '/':
+    img_dir += '/'
+
 
 
 
@@ -153,3 +157,8 @@ for image in image_all:
 # cv2.imshow('image',img)
 # cv2.waitKey(0)
 # cv2.destroyAllWindows()
+
+
+
+print("[3/3] 画像を入れるディレクトリのパスを入力してください。")
+out_dir = raw_input() + "/"
