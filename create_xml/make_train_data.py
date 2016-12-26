@@ -8,6 +8,8 @@ print("[1/4]face_boxの位置情報が入ったXMLファイルへのパスを入
 xml_path = raw_input()
 # /Users/chihiro/Documents/08.Jolie-Joli/Images/ibug/300W/output_20161216_all.xml
 
+if xml_path[-4:] != '.xml':
+    xml_path += '.xml'
 
 ### XMLを読み込む
 tree = ET.parse(xml_path)
