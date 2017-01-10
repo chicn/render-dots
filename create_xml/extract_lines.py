@@ -12,7 +12,7 @@ import glob
 
 # extract lines by reffering filenames
 
-# merge
+# out
 
 #######################################
 print("Plese input a path to \"the original train data(xml format)\".")
@@ -28,14 +28,14 @@ root = tree.getroot()
 
 
 #######################################
-print("Please input a path to \"the directory of image data\".")
+print("[1/4]Please input a path to \"the directory of image data\".")
 img_dir = raw_input()
 # /Users/chihiro/Documents/08.Jolie-Joli/Images/ibug/300W_single_multi/05_Single_Face
 
 if img_dir[-1] != '/':
     img_dir += '/'
 
-print("Please input a \"TYPE\" of the image files. \n ex) png, jpeg, jpg")
+print("[2/4]Please input a \"TYPE\" of the image files. \n ex) png, jpeg, jpg")
 img_format = raw_input()
 # /Users/chihiro/Documents/08.Jolie-Joli/Images/ibug/300W_single_multi/05_Single_Face
 
@@ -78,3 +78,18 @@ def indent(elem, level=0):
         if level and (not elem.tail or not elem.tail.strip()):
             elem.tail = i
 
+indent(root)
+
+print("[3/4] 完成した訓練データ(.xml)を保存したいディレクトリのパスを入力してください。")
+out_dir = raw_input()
+# /Users/chihiro/Documents/08.Jolie-Joli/Images/ibug/300W_single_multi/05_Single_Face
+if out_dir[-1] != '/':
+    out_dir += '/'
+
+print("[4/4] 完成した訓練データのファイル名を入力してください。")
+out_file_name = raw_input()
+
+if out_file_name[-4:] != '.xml':
+    out_file_name += '.xml'
+
+tree.write(out_dir + out_file_name)
