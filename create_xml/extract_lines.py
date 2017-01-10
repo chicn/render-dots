@@ -17,6 +17,7 @@ import glob
 #######################################
 print("Plese input a path to \"the original train data(xml format)\".")
 xml_path = raw_input()
+# /Users/chihiro/Programs/dlib/DlibSample/Images/faces_12202016/training_with_face_landmarks.xml
 
 if xml_path[-4:] != '.xml':
     xml_path += '.xml'
@@ -46,7 +47,34 @@ if img_format != 'jpg':
 img_dir += '*.' + img_format
 
 img_names = glob.glob(img_dir)
+original_img_names = img_names
+
+### 特別使用
+for i, img_name in enumerate(img_names):
+    slash_index = img_name.rfind('/')
+    img_names[i] = img_name[slash_index+1:]
+    img_names[i] = 'Image/' + img_names[i]
+
 
 
 
 #######################################
+for image in root.findall('.//image'):
+    if image.attrib['file'] not in img_names:
+        root[2].remove(image)
+
+def indent(elem, level=0):
+    i = "\n" + level*"  "
+    if len(elem):
+        if not elem.text or not elem.text.strip():
+            elem.text = i + "  "
+        if not elem.tail or not elem.tail.strip():
+            elem.tail = i
+        for elem in elem:
+            indent(elem, level+1)
+        if not elem.tail or not elem.tail.strip():
+            elem.tail = i
+    else:
+        if level and (not elem.tail or not elem.tail.strip()):
+            elem.tail = i
+
