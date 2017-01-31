@@ -12,3 +12,14 @@ while xml_path[-4:] != '.xml':
 
 tree = ET.parse(xml_path)
 root = tree.getroot()
+
+
+for image in root.findall('.//image'):
+    for box in image.findall('.//box'):
+        height = int(box.attrib['height'])
+        width = int(box.attrib['width'])
+
+        if height <= 80:
+            if width <= 80:
+                print(image.attrib['file'])
+
