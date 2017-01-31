@@ -77,7 +77,7 @@ for image in root.findall('.//image'):
         text = land.attrib['name']
         x = int(land.attrib['x'])
         y = int(land.attrib['y'])
-        fontscale = 0.1
+        fontscale = 1
         # thickness = xxx
         # cv2.putText(img, text, org, fontFace, fontScale, color[, thickness[, lineType[, bottomLeftOrigin]]])
         img_box_land = img_box

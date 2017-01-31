@@ -24,7 +24,7 @@ xml_path = raw_input()
 
 if xml_path[-4:] != '.xml':
     print("hoge.xmlの形のパスを再入力してください")
-    xml_path = raw_input
+    xml_path = raw_input()
 
 tree = ET.parse(xml_path)
 root = tree.getroot()
@@ -36,7 +36,7 @@ img_dir = raw_input()
 if img_dir[-1] != '/':
     img_dir += '/'
 
-print("[3/3: 出力先のディレクトリへのパスを入力してください。]")
+print("3/3: 出力先のディレクトリへのパスを入力してください。")
 out_dir = raw_input()
 # /Users/chihiro/Desktop/tmp_landed_images_20161225
 if out_dir[-1] != '/':
