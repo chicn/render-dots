@@ -24,7 +24,7 @@ xml_path = raw_input()
 
 if xml_path[-4:] != '.xml':
     print("hoge.xmlの形のパスを再入力してください")
-    xml_path = raw_input()
+    xml_path = raw_input
 
 tree = ET.parse(xml_path)
 root = tree.getroot()
@@ -36,7 +36,7 @@ img_dir = raw_input()
 if img_dir[-1] != '/':
     img_dir += '/'
 
-print("3/3: 出力先のディレクトリへのパスを入力してください。")
+print("[3/3: 出力先のディレクトリへのパスを入力してください。]")
 out_dir = raw_input()
 # /Users/chihiro/Desktop/tmp_landed_images_20161225
 if out_dir[-1] != '/':
@@ -80,22 +80,22 @@ for image in root.findall('.//image'):
         fontscale = 1
         # thickness = xxx
         # cv2.putText(img, text, org, fontFace, fontScale, color[, thickness[, lineType[, bottomLeftOrigin]]])
+        img_box_land = img_box
         cv2.putText(img_box_land, text, (x, y), font, fontscale, text_color)
+        ## 出力する
+        if '.png' in img_name:
+            out_name = img_name[:-4]
+            out_name += '_' + text+ '_land.png'
+        elif '.jpeg' in img_name:
+            out_name = img_name[:-5]
+            out_name += '_' + text+ '_land.jpeg'
+        elif '.jpg' in img_name:
+            out_name = img_name[:-4]
+            out_name += '_' + text+ '_land.jpg'
+        else:
+            print("Warning: the pic file name: \"" + img_name + "\" might be wrong")
+        cv2.imwrite(out_dir + out_name, img_box_land)
 
-    ## 出力する
-    if '.png' in img_name:
-        out_name = img_name[:-4]
-        out_name += '_land.png'
-    elif '.jpeg' in img_name:
-        out_name = img_name[:-5]
-        out_name += '_land.jpeg'
-    elif '.jpg' in img_name:
-        out_name = img_name[:-4]
-        out_name += '_land.jpg'
-    else:
-        print("Warning: the pic file name: \"" + img_name + "\" might be wrong")
-
-    cv2.imwrite(out_dir + out_name, img_box_land)
 
 ###########################################
 ### 参考 ##################################
