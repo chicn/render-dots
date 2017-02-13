@@ -33,8 +33,23 @@ def load_bounding_box_mat():
     return box_info
      # [u'296814969_3.jpg', [266, 293, 566, 563]]
 
+
 # Step 2
 # Create base of XML
+def indent(elem, level=0):
+    i = "\n" + level*"  "
+    if len(elem):
+        if not elem.text or not elem.text.strip():
+            elem.text = i + "  "
+        if not elem.tail or not elem.tail.strip():
+            elem.tail = i
+        for elem in elem:
+            indent(elem, level+1)
+        if not elem.tail or not elem.tail.strip():
+            elem.tail = i
+    else:
+        if level and (not elem.tail or not elem.tail.strip()):
+            elem.tail = i
 
 
 # Step 3
