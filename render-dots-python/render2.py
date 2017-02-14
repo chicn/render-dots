@@ -7,8 +7,10 @@ import xml.etree.ElementTree as ET
 import pdb
 
 ### 1-1. 'face_box'と'landmark'が書いてあるxmlファイルをインポートする
-print("[1/3]face_boxの位置情報が入ったXMLファイルへのパスを入力してください。")
-xml_path = raw_input()
+xml_path = ""
+while xml_path[-4:] != ".xml":
+    print("[1/3]face_boxの位置情報が入ったXMLファイルへのパスを入力してください。")
+    xml_path = raw_input()
 # /Users/chihiro/Programs/dlib/DlibSample/Images/faces_12202016/training_with_face_landmarks_20161220.xml
 
 #### 「異なるXMLファイルのパスならもう一度読み込む」みたいにしたかった。
