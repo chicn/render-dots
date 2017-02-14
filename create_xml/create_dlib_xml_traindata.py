@@ -120,4 +120,4 @@ out_name = ''
 while out_name[-4:] != '.xml':
     print("出力したいファイル名を入力してください")
     out_name = raw_input()
-tree.write(out_dir + out_name, encoding="ISO 8859-1")
+tree.write(out_dir + out_name, encoding="ISO-8859-1")
